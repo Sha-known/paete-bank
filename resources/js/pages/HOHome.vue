@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
-// Sidebar navigation items
+// 1. Reactive state for the sidebar
+const isCollapsed = ref(false)
+
 const navItems = [
   { name: 'Dashboard', icon: 'monitor_weight', active: true },
   { name: 'Book', icon: 'menu_book', active: false },
@@ -13,17 +15,32 @@ const navItems = [
 ]
 
 const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
+
+// 2. Toggle function
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value
+}
 </script>
 
 <template>
   <div class="flex h-screen bg-[#f0f7ff] font-sans overflow-hidden">
     
-    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
-      <div class="p-6 flex flex-col items-center border-b border-gray-100">
-        <div class="w-20 h-20 rounded-full border-2 border-[#00a6e6] flex items-center justify-center mb-2">
-          <span class="text-[#00a6e6] font-bold text-4xl">B</span>
+    <aside 
+      :class="[
+        'bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out flex-shrink-0',
+        isCollapsed ? 'w-20' : 'w-64'
+      ]"
+    >
+      <div class="p-6 flex flex-col items-center border-b border-gray-100 overflow-hidden">
+        <div 
+          :class="[
+            'rounded-full border-2 border-[#00a6e6] flex items-center justify-center transition-all duration-300',
+            isCollapsed ? 'w-10 h-10' : 'w-20 h-20 mb-2'
+          ]"
+        >
+          <span :class="['text-[#00a6e6] font-bold', isCollapsed ? 'text-xl' : 'text-4xl']">B</span>
         </div>
-        <h1 class="text-center text-[#00a6e6] font-bold leading-tight uppercase tracking-tight">
+        <h1 v-show="!isCollapsed" class="text-center text-[#00a6e6] font-bold leading-tight uppercase tracking-tight whitespace-nowrap">
           Rural bank <br/> of Paete, Inc.
         </h1>
       </div>
@@ -32,26 +49,37 @@ const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
         <template v-for="item in navItems" :key="item.name">
           <div 
             :class="[
-              'flex items-center px-6 py-3 cursor-pointer transition-colors',
+              'flex items-center py-3 cursor-pointer transition-colors',
+              isCollapsed ? 'justify-center px-0' : 'px-6',
               item.active ? 'bg-[#00a6e6] text-white' : 'text-gray-600 hover:bg-gray-50'
             ]"
           >
-            <span class="material-icons-outlined mr-3 text-xl">{{ item.icon }}</span>
-            <span class="text-lg">{{ item.name }}</span>
+            <span :class="['material-icons-outlined text-xl', !isCollapsed && 'mr-3']">{{ item.icon }}</span>
+            <span v-show="!isCollapsed" class="text-lg whitespace-nowrap">{{ item.name }}</span>
           </div>
         </template>
       </nav>
 
-      <div class="p-6 border-t border-gray-100 flex items-center text-gray-600 cursor-pointer hover:text-red-500">
-        <span class="material-icons-outlined mr-3">logout</span>
-        <span class="text-lg">Log out</span>
+      <div 
+        :class="[
+          'p-6 border-t border-gray-100 flex items-center text-gray-600 cursor-pointer hover:text-red-500',
+          isCollapsed ? 'justify-center' : ''
+        ]"
+      >
+        <span :class="['material-icons-outlined', !isCollapsed && 'mr-3']">logout</span>
+        <span v-show="!isCollapsed" class="text-lg">Log out</span>
       </div>
     </aside>
 
-    <main class="flex-1 flex flex-col">
+    <main class="flex-1 flex flex-col min-w-0">
       <header class="m-4 bg-[#00a6e6] rounded-xl flex items-center justify-between px-6 py-3 text-white shadow-sm">
-        <div class="text-sm font-medium">
-          Friday, August 1, 2024
+        <div class="flex items-center gap-4">
+          <button @click="toggleSidebar" class="flex items-center justify-center p-1 hover:bg-white/20 rounded-md transition-colors">
+            <span class="material-icons-outlined">{{ isCollapsed ? 'menu' : 'menu_open' }}</span>
+          </button>
+          <div class="text-sm font-medium">
+            Friday, August 1, 2024
+          </div>
         </div>
         
         <div class="flex items-center gap-6">
@@ -67,7 +95,7 @@ const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
       </header>
 
       <div class="flex-1 flex items-center justify-center opacity-20 select-none">
-        <h1 class="text-[12rem] font-black text-[#00a6e6] tracking-tighter italic">
+        <h1 class="text-[12rem] font-black text-[#00a6e6] tracking-tighter italic overflow-hidden">
           GLKEEPER
         </h1>
       </div>
@@ -77,6 +105,10 @@ const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
 </template>
 
 <style>
-/* Ensure Material Icons are available in your index.html */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+/* Ensure transitions are smooth */
+.transition-all {
+  transition-property: all;
+}
 </style>
