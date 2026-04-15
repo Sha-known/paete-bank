@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 
 // 1. Reactive state for the sidebar
 const isCollapsed = ref(false)
@@ -19,6 +20,10 @@ const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
 // 2. Toggle function
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value
+}
+
+const logout = () => {
+  router.post('/logout')
 }
 </script>
 
@@ -61,6 +66,7 @@ const toggleSidebar = () => {
       </nav>
 
       <div 
+        @click="logout"
         :class="[
           'p-6 border-t border-gray-100 flex items-center text-gray-600 cursor-pointer hover:text-red-500',
           isCollapsed ? 'justify-center' : ''
@@ -78,7 +84,7 @@ const toggleSidebar = () => {
             <span class="material-icons-outlined">{{ isCollapsed ? 'menu' : 'menu_open' }}</span>
           </button>
           <div class="text-sm font-medium">
-            Friday, August 1, 2024
+            Wednesday, April 15, 2026
           </div>
         </div>
         
