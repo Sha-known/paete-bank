@@ -3,9 +3,11 @@ import { ref, computed } from 'vue'
 import HOSidebar from '@/components/HOSidebar.vue'
 import HOTopbar from '@/components/HOTopbar.vue'
 import HODateTimeModal from '@/components/HODateTimeModal.vue'
+import HODataEntryModal from '@/components/HODataEntryModal.vue'
 
 const isCollapsed = ref(false)
 const showTimeModal = ref(false)
+const showEntryModal = ref(false)
 const selectedDate = ref('2024-08-01')
 const selectedTime = ref('09:00:00')
 
@@ -27,11 +29,13 @@ const formattedHeaderDate = computed(() => {
         :formattedDate="formattedHeaderDate"
         @toggleSidebar="isCollapsed = !isCollapsed"
         @openModal="showTimeModal = true"
+        @openEntry="showEntryModal = true" 
       />
 
       <div class="flex-1 flex flex-col relative">
         <slot />
         <HODateTimeModal v-model:show="showTimeModal" v-model:date="selectedDate" v-model:time="selectedTime" />
+        <HODataEntryModal v-model:show="showEntryModal" />
       </div>
 
     </main>

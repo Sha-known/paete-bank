@@ -5,8 +5,7 @@ defineProps({
 })
 
 // We define signals that this component can send to the parent
-const emit = defineEmits(['toggleSidebar', 'openModal'])
-
+const emit = defineEmits(['toggleSidebar', 'openModal', 'openEntry'])
 const topNav = ['File', 'Data Entry', 'Reports', 'FRP Templates', 'Tools']
 </script>
 
@@ -24,7 +23,12 @@ const topNav = ['File', 'Data Entry', 'Reports', 'FRP Templates', 'Tools']
     
     <div class="flex items-center gap-6">
       <ul class="flex gap-6 text-sm">
-        <li v-for="link in topNav" :key="link" class="cursor-pointer hover:underline">
+        <li 
+          v-for="link in topNav" 
+          :key="link" 
+          @click="link === 'Data Entry' ? emit('openEntry') : null" 
+          class="cursor-pointer hover:underline"
+        >
           {{ link }}
         </li>
       </ul>
