@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { router } from '@inertiajs/vue3'
 import { useAuth } from '@/composables/useAuth'
-import HODateTimeModal from '@/pages/HODateTimeModal.vue' // Adjust path if moved
+import HODateTimeModal from '@/components/HODateTimeModal.vue' // Adjust path if moved
 
 const isCollapsed = ref(false)
 const showTimeModal = ref(false)
