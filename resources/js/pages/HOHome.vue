@@ -1,6 +1,9 @@
 <script setup>
+import { computed } from 'vue';
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+
+
 
 // 1. Sidebar & Modal State
 const isCollapsed = ref(false)
