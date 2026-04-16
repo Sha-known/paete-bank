@@ -7,8 +7,8 @@ const activeTab = ref('datetime')
 </script>
 
 <template>
-  <div v-if="isVisible" class="z-40">
-    <div class="bg-white rounded-xl shadow-2xl w-[480px] overflow-hidden border border-gray-200 animate-in">
+  <div v-if="isVisible" class="absolute inset-0 z-40 flex items-center justify-center bg-black/10">
+    <div class="bg-white rounded-xl shadow-xl w-[480px] overflow-hidden border border-gray-200 animate-in">
       
       <div class="bg-[#00a6e6] p-3 flex justify-between items-center text-white">
         <span class="font-bold text-[11px] uppercase tracking-widest px-2">Date and Time</span>
