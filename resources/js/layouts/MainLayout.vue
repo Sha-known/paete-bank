@@ -28,8 +28,16 @@ const formattedHeaderDate = computed(() => {
         :isCollapsed="isCollapsed" 
         :formattedDate="formattedHeaderDate"
         @toggleSidebar="isCollapsed = !isCollapsed"
-        @openModal="showTimeModal = true"
-        @openEntry="showEntryModal = true" 
+  
+        @openModal="() => { 
+          showTimeModal = true; 
+          showEntryModal = false; // Close entry when opening time
+        }"
+  
+        @openEntry="() => { 
+          showEntryModal = true; 
+          showTimeModal = false; // Close time when opening entry
+        }" 
       />
 
       <div class="flex-1 flex flex-col relative">
