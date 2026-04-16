@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { router } from '@inertiajs/vue3'
+import { useAuth } from '@/composables/useAuth'
 import HODateTimeModal from '@/pages/HODateTimeModal.vue' // Adjust path if moved
 
 const isCollapsed = ref(false)
@@ -24,8 +25,7 @@ const navItems = [
 ]
 
 const topNav = ['File', 'Data Entry', 'Reports', 'FRP Templates', 'Tools']
-
-const logout = () => { router.post('/logout') }
+const { logout } = useAuth()
 </script>
 
 <template>
