@@ -1,15 +1,22 @@
 import { router } from '@inertiajs/vue3'
 
 export function useAuth() {
+    // New Login Logic
+    const login = (form: any) => {
+        form.post('/login', {
+            onFinish: () => form.reset('password'), // Clears password field if login fails
+        })
+    }
+
+    // Existing Logout Logic
     const logout = () => {
-        // You can add a confirmation here if you want
         if (confirm('Are you sure you want to log out?')) {
             router.post('/logout')
         }
     }
 
-    // You can add more auth-related functions here later, like 'login'
     return {
+        login,
         logout
     }
 }

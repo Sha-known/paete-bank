@@ -1,14 +1,16 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
+import { useAuth } from '@/composables/useAuth'
 import logoImg from '../../images/new assets/logo.png'
 
+const { login } = useAuth()
 const form = useForm({
   email: '',
   password: '',
 })
 
 const submitLogin = () => {
-  form.post('/login')
+  login(form)
 }
 </script>
 
