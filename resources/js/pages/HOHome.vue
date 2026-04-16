@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+import HODateTimeModal from './HODateTimeModal.vue';
 
 
 
@@ -29,7 +30,7 @@ const navItems = [
   { name: 'Setup', icon: 'settings', active: false },
 ]
 
-const topNav = ['File', 'Date Entry', 'Reports', 'FRP Templates', 'Tools']
+const topNav = ['File', 'Data Entry', 'Reports', 'FRP Templates', 'Tools']
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value
@@ -94,8 +95,8 @@ const logout = () => {
           <button @click="toggleSidebar" class="flex items-center justify-center p-1 hover:bg-white/20 rounded-md transition-colors">
             <span class="material-icons-outlined">{{ isCollapsed ? 'menu' : 'menu_open' }}</span>
           </button>
-          <div class="text-sm font-medium">
-            Wednesday, April 15, 2026
+          <div @click="showTimeModal = !showTimeModal" class="text-sm font-medium cursor-pointer hover:bg-white/20 px-2 py-1 rounded transition-colors select-none">
+            {{ formattedHeaderDate }}
           </div>
         </div>
         
